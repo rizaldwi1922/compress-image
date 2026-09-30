@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Kompres dan konversi gambar ke WebP atau JPEG langsung di browser."
+    />
+    <title>Ringkas — Kompres Gambar Tanpa Ribet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-glow page-glow-one"></div>
+    <div class="page-glow page-glow-two"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Ringkas, kembali ke awal">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M8 10.5 16 6l8 4.5v10L16 25l-8-4.5v-10Z" stroke="currentColor" stroke-width="2.2" />
+            <path d="m11.5 15 4.5 2.5 4.5-2.5M16 17.5V22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span>ringkas.</span>
+      </a>
+      <div class="privacy-pill">
+        <span class="pulse-dot"></span>
+        100% diproses di perangkatmu
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">KOMPRESI CERDAS • HASIL TAJAM</p>
+        <h1 id="hero-title">Gambar lebih ringan.<br /><span>Tetap enak dipandang.</span></h1>
+        <p class="hero-copy">
+          Ubah JPG atau PNG berukuran besar menjadi WebP yang ringkas—tanpa perlu
+          mengirim file ke server mana pun.
+        </p>
+      </section>
+
+      <section class="app-shell" aria-label="Aplikasi kompres gambar">
+        <div class="settings-panel">
+          <div class="setting-group">
+            <label for="target-size">Target ukuran</label>
+            <div class="input-with-unit">
+              <input id="target-size" type="number" min="50" max="50000" step="50" value="1000" />
+              <select id="target-unit" aria-label="Satuan ukuran target">
+                <option value="1024">KB</option>
+                <option value="1048576">MB</option>
+              </select>
+            </div>
+            <p class="field-hint">Kami usahakan hasil tidak melebihi ukuran ini.</p>
+          </div>
+
+          <div class="setting-group">
+            <label for="output-format">Format hasil</label>
+            <div class="format-options" id="output-format">
+              <button class="format-button active" type="button" data-format="image/webp">WEBP</button>
+              <button class="format-button" type="button" data-format="image/jpeg">JPG</button>
+              <button class="format-button" type="button" data-format="image/png">PNG</button>
+            </div>
+          </div>
+
+          <details class="advanced-settings">
+            <summary>Pengaturan lanjutan <span>＋</span></summary>
+            <div class="advanced-content">
+              <div class="setting-group">
+                <label for="max-dimension">Sisi terpanjang maksimal</label>
+                <div class="input-with-suffix">
+                  <input id="max-dimension" type="number" min="320" max="12000" step="100" value="4096" />
+                  <span>px</span>
+                </div>
+              </div>
+              <div class="setting-group">
+                <div class="range-label">
+                  <label for="min-quality">Kualitas minimum</label>
+                  <output id="min-quality-value">55%</output>
+                </div>
+                <input id="min-quality" type="range" min="20" max="90" step="5" value="55" />
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <div class="workspace-panel">
+          <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="Pilih atau letakkan gambar">
+            <input id="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple hidden />
+            <div class="upload-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <path d="M15 19.5a9 9 0 0 1 17.23-3.67A7.5 7.5 0 1 1 34.5 30H14a6 6 0 0 1 1-11.92" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="m24 29 0-11m0 0-4 4m4-4 4 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h2>Taruh gambar di sini</h2>
+            <p>atau <span>pilih dari perangkat</span></p>
+            <small>JPG, PNG, WebP, atau AVIF • Maks. 100 MB per file</small>
+          </div>
+
+          <div id="batch-actions" class="batch-actions" hidden>
+            <div>
+              <strong>Hasil kompresi</strong>
+              <span id="batch-summary">0 file siap</span>
+            </div>
+            <a id="download-all" class="download-all-button disabled" href="" download aria-disabled="true">
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v8m0 0 3-3m-3 3L7 8M4 15h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>Unduh semua</span>
+            </a>
+          </div>
+
+          <div id="queue" class="queue" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="benefits" aria-label="Keunggulan aplikasi">
+        <article>
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4.7 2.9 8.2 7 10 4.1-1.8 7-5.3 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.8"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div><h3>Privat sepenuhnya</h3><p>File tidak pernah meninggalkan browser.</p></div>
+        </article>
+        <article>
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M13 2 5 14h6l-1 8 8-12h-6l1-8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </div>
+          <div><h3>Target otomatis</h3><p>Kualitas dicari hingga mendekati batas.</p></div>
+        </article>
+        <article>
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 7V4h3m10 0h3v3M4 17v3h3m13-3v3h-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m8 15 3-3 2 2 3-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div><h3>Detail tetap terjaga</h3><p>Resolusi hanya turun saat diperlukan.</p></div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <span>ringkas. — dibuat untuk gambar yang lebih efisien</span>
+      <span>Tanpa upload • Tanpa watermark</span>
+    </footer>
+
+    <template id="queue-item-template">
+      <article class="queue-item">
+        <div class="thumb-wrap"><img class="thumb" alt="Pratinjau gambar" /></div>
+        <div class="file-info">
+          <div class="file-heading">
+            <strong class="file-name"></strong>
+            <button class="remove-button" type="button" aria-label="Hapus gambar">×</button>
+          </div>
+          <p class="file-meta"></p>
+          <div class="progress-track"><span class="progress-bar"></span></div>
+          <p class="status-text">Menunggu…</p>
+        </div>
+        <div class="result-info" hidden>
+          <div class="saving-badge"></div>
+          <strong class="result-size"></strong>
+          <span class="result-dimension"></span>
+          <a class="download-button" href="" download>
+            <svg viewBox="0 0 20 20" fill="none"><path d="M10 3v9m0 0 3-3m-3 3L7 9M4 15h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Unduh
+          </a>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
